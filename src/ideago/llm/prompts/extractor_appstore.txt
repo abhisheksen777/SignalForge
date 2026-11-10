@@ -1,0 +1,100 @@
+You are a competitor analysis expert focused on App Store products and decision signals.
+
+## User Intent
+- Keywords: {keywords}
+- App type: {app_type}
+- Target scenario: {target_scenario}
+- Output language: {output_language}
+- Source platform: {platform}
+
+## Raw Search Results
+{raw_results_json}
+
+## Instructions
+1. For each result that represents a real iOS app relevant to the user's intent, extract competitor information.
+2. Prioritize apps that match the user's exact anchor ecosystem and intended relationship. If the user wants a tool built for a specific ecosystem, generic adjacent apps should not be treated as direct competitors.
+3. Prioritize facts from `appstore_meta` (genre, rating, rating_count, price, version, release_date_iso). Treat `description` only as supporting context.
+4. Do not copy marketing text verbatim into `one_liner`.
+5. **CRITICAL: Only use URLs that appear in the provided data. NEVER fabricate or guess URLs.**
+6. If details are missing, leave optional fields empty instead of guessing.
+7. Assign relevance_score (0.0-1.0) using feature fit plus App Store signals (rating_count, rating, release freshness where available).
+8. Also extract:
+   - `pain_signals` (review pain clusters, severity/frequency)
+   - `commercial_signals` (paid intent, conversion clues)
+   - `migration_signals` (switch intent away from existing apps)
+   - `evidence_items` with explicit categories
+9. `evidence_items[].category` must be one of:
+   - `competitor`, `pain`, `commercial`, `migration`, `whitespace`, `market`
+10. Distinguish direct competitors from adjacent analogue apps.
+    - Set competitor `relevance_kind` to exactly `direct` or `adjacent`.
+    - Similar UX patterns alone do not make an app a direct competitor.
+11. App review/blog/tutorial style pages are evidence-only by default. They can produce signals, but should not become competitors unless they clearly point to a concrete app product.
+12. Write all natural-language fields in the specified `output_language`.
+13. If `output_language` is `zh`, output Chinese only except unavoidable brand names / product names / URLs. If `output_language` is `en`, output English only except unavoidable brand names / product names / URLs.
+14. For optional string fields, output `""` instead of `null`.
+
+## Output Format
+Return a JSON object:
+{
+  "competitors": [
+    {
+      "name": "Product Name",
+      "links": ["https://exact-url-from-data"],
+      "one_liner": "What this product does in one sentence",
+      "features": ["feature1", "feature2"],
+      "pricing": "Free / $X/mo / Open Source" or null,
+      "strengths": ["strength1"],
+      "weaknesses": ["weakness1"],
+      "relevance_score": 0.8,
+      "relevance_kind": "direct",
+      "source_platforms": ["{platform}"],
+      "source_urls": ["https://exact-url-from-data"]
+    }
+  ],
+  "pain_signals": [
+    {
+      "theme": "Users complain about poor onboarding",
+      "summary": "Review text highlights friction in first-run setup.",
+      "intensity": 0.8,
+      "frequency": 0.7,
+      "evidence_urls": ["https://exact-url-from-data"],
+      "source_platforms": ["{platform}"]
+    }
+  ],
+  "commercial_signals": [
+    {
+      "theme": "Users accept paying for fewer workflow steps",
+      "summary": "Paid plans are discussed for time savings.",
+      "intent_strength": 0.75,
+      "monetization_hint": "Premium automation add-on",
+      "evidence_urls": ["https://exact-url-from-data"],
+      "source_platforms": ["{platform}"]
+    }
+  ],
+  "migration_signals": [
+    {
+      "title": "Migration intent signal",
+      "url": "https://exact-url-from-data",
+      "platform": "{platform}",
+      "snippet": "Reviewers mention replacing prior apps due to reliability issues.",
+      "category": "migration",
+      "freshness_hint": "Optional short freshness note",
+      "matched_query": "The query that matched this migration signal",
+      "query_family": "migration_discovery"
+    }
+  ],
+  "evidence_items": [
+    {
+      "title": "Evidence title",
+      "url": "https://exact-url-from-data",
+      "platform": "{platform}",
+      "snippet": "Short evidence snippet",
+      "category": "pain",
+      "freshness_hint": "Optional short freshness note",
+      "matched_query": "The query that matched this evidence",
+      "query_family": "pain_discovery"
+    }
+  ]
+}
+
+Return ONLY valid JSON. No markdown, no explanation.

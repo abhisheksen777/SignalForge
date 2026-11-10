@@ -1,0 +1,95 @@
+name: CI
+
+on:
+  push:
+    branches: ["main", "master"]
+  pull_request:
+
+jobs:
+  backend:
+    name: Python ${{ matrix.python-version }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.10", "3.11", "3.12", "3.13"]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Setup uv
+        uses: astral-sh/setup-uv@v4
+        with:
+          enable-cache: true
+
+      - name: Install dependencies
+        env:
+          UV_DEFAULT_INDEX: https://pypi.org/simple
+        run: uv sync --all-extras
+
+      - name: Ruff lint
+        run: uv run ruff check src tests scripts
+
+      - name: Ruff format check
+        run: uv run ruff format --check src tests scripts
+
+      - name: Mypy
+        run: uv run mypy src
+
+      - name: Security audit (pip-audit)
+        env:
+          UV_DEFAULT_INDEX: https://pypi.org/simple
+        run: |
+          uv export --format requirements-txt --no-dev --no-header --no-hashes --no-emit-project > requirements.audit.txt
+          uvx pip-audit --strict --desc -r requirements.audit.txt
+
+      - name: Pytest
+        run: uv run pytest
+
+  frontend:
+    name: Frontend
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: frontend
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+          cache-dependency-path: frontend/pnpm-lock.yaml
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Lint
+        run: pnpm lint
+
+      - name: Type check
+        run: pnpm typecheck
+
+      - name: Security audit (pnpm audit)
+        run: pnpm audit --prod
+        continue-on-error: true
+
+      - name: Build
+        run: pnpm build
+
+      - name: Test
+        run: pnpm test

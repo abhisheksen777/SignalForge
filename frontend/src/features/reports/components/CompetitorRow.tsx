@@ -1,0 +1,81 @@
+import { ExternalLink, Globe } from 'lucide-react'
+import { memo } from 'react'
+import { useTranslation } from 'react-i18next'
+import { Badge } from '@/components/ui/Badge'
+import { getCompetitorDomId, getCompetitorId } from '../competitor'
+import { RelevanceRing } from './RelevanceRing'
+import { PlatformIcon, platformColors } from './PlatformIcons'
+import type { Competitor } from '@/lib/types/research'
+
+interface CompetitorRowProps {
+  competitor: Competitor
+  rank: number
+  domId?: string
+  compareSelected?: boolean
+  onToggleCompare?: (id: string) => void
+}
+
+export const CompetitorRow = memo(function CompetitorRow({ competitor, rank, domId, compareSelected, onToggleCompare }: CompetitorRowProps) {
+  const { t } = useTranslation()
+  const primaryLink = competitor.links[0]
+  const elementId = domId ?? getCompetitorDomId(competitor)
+
+  return (
+    <div
+      id={elementId}
+      className="flex items-center gap-4 px-5 py-4 rounded-none border-2 border-border bg-card transition-all duration-300 group"
+    >
+      <span className="text-sm font-mono text-muted-foreground w-6 text-right shrink-0">#{rank}</span>
+      <RelevanceRing score={competitor.relevance_score} size={32} />
+
+      <div className="min-w-0 flex-1 ml-2">
+        <p className="text-base font-medium text-foreground truncate group-hover:text-cta transition-colors" title={competitor.name}>
+          {competitor.name}
+        </p>
+        <p className="text-xs text-muted-foreground truncate" title={competitor.one_liner}>
+          {competitor.one_liner}
+        </p>
+      </div>
+
+      <div className="flex flex-wrap gap-1.5 shrink-0 max-w-40 justify-end">
+        {competitor.source_platforms.map(p => {
+          const Icon = PlatformIcon[p] || Globe
+          return (
+            <Badge key={p} variant="default" className={`text-[10px] pl-1 pr-1.5 py-0.5 whitespace-nowrap ${platformColors[p] || ''}`}>
+              <Icon className="w-3 h-3" />
+              {p}
+            </Badge>
+          )
+        })}
+      </div>
+
+      <div className="flex items-center gap-2 shrink-0">
+        {onToggleCompare && (
+          <button
+            onClick={e => { e.stopPropagation(); onToggleCompare(getCompetitorId(competitor)) }}
+            className={`text-xs font-bold uppercase tracking-wider px-2 py-1 rounded-none border-2 cursor-pointer transition-colors duration-200 focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none ${
+              compareSelected
+                ? 'border-cta bg-cta text-primary-foreground shadow-sm'
+                : 'border-border text-muted-foreground hover:border-cta/50 hover:text-cta hover:bg-cta/5'
+            }`}
+            aria-label={compareSelected ? t('report.competitors.compareSelected') : t('report.competitors.compareUnselected')}
+            aria-pressed={Boolean(compareSelected)}
+          >
+            {compareSelected ? t('report.competitors.compareSelected') : t('report.competitors.compareUnselected')}
+          </button>
+        )}
+        {primaryLink && (
+          <a
+            href={primaryLink}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="p-1.5 rounded-none text-muted-foreground hover:text-cta transition-colors focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none"
+            aria-label={t('report.accessibility.openCompetitor', { name: competitor.name })}
+          >
+            <ExternalLink className="w-3.5 h-3.5" />
+          </a>
+        )}
+      </div>
+    </div>
+  )
+})
