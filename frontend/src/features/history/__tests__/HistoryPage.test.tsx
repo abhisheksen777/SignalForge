@@ -4,7 +4,7 @@ import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { deleteReport, listReports } from '@/lib/api/client'
 import { HistoryPage } from '../HistoryPage'
 
-const HISTORY_CACHE_STORAGE_KEY = 'ideago-history-cache'
+const HISTORY_CACHE_STORAGE_KEY = 'signalforge-history-cache'
 
 vi.mock('@/lib/api/client', () => ({
   deleteReport: vi.fn(),

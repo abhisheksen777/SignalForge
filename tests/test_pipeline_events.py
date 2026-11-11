@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import json
 
-from ideago.pipeline.events import EventType, PipelineEvent
+from signalforge.pipeline.events import EventType, PipelineEvent
 
 
 def test_event_type_values() -> None:

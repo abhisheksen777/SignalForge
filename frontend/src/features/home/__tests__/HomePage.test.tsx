@@ -18,7 +18,7 @@ vi.mock('@/hooks/useDocumentTitle', () => ({
   useDocumentTitle: vi.fn(),
 }))
 
-const HISTORY_CACHE_STORAGE_KEY = 'ideago-history-cache'
+const HISTORY_CACHE_STORAGE_KEY = 'signalforge-history-cache'
 
 describe('HomePage recent reports', () => {
   beforeEach(() => {

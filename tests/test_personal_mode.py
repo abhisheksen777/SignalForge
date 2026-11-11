@@ -6,9 +6,9 @@ import pytest
 from fastapi.routing import APIRoute, iter_route_contexts
 from fastapi.testclient import TestClient
 
-from ideago.api import dependencies as deps
-from ideago.api.app import create_app
-from ideago.config.settings import get_settings, reload_settings
+from signalforge.api import dependencies as deps
+from signalforge.api.app import create_app
+from signalforge.config.settings import get_settings, reload_settings
 
 
 @pytest.fixture
@@ -48,7 +48,7 @@ def test_personal_mode_allows_anonymous_analyze_requests(
 ) -> None:
     app = create_app()
 
-    with TestClient(app, headers={"X-Requested-With": "IdeaGo"}) as client:
+    with TestClient(app, headers={"X-Requested-With": "SignalForge"}) as client:
         response = client.post(
             "/api/v1/analyze",
             json={"query": "I want to build a markdown notes extension"},

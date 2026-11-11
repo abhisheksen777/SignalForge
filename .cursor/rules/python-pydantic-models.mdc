@@ -6,7 +6,7 @@ globs: **/models/**/*.py
 - Use Pydantic v2 syntax and features (Field, field_validator, model_validator, model_config, ConfigDict).
 - Define model_config using ConfigDict for model-level configuration (populate_by_name, validate_assignment, extra, etc.).
 - Use Field() to add validation constraints, descriptions, default values, and aliases for all model fields.
-- Provide bilingual descriptions (English / 中文) in Field(description=...) for better documentation.
+- Provide bilingual descriptions (English / ) in Field(description=...) for better documentation.
 - Use type hints for all fields with proper types (str, int, List[T], Optional[T], etc.).
 - Use Optional[T] explicitly instead of T | None for Python 3.8+ compatibility.
 - Implement field validators using @field_validator decorator for custom validation logic.

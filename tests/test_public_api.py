@@ -7,12 +7,12 @@ from pathlib import Path
 
 import pytest
 
-from ideago import utils
+from signalforge import utils
 
 
 def test_models_module_can_be_imported() -> None:
-    """`ideago.models` should always be importable."""
-    models_module = importlib.import_module("ideago.models")
+    """`signalforge.models` should always be importable."""
+    models_module = importlib.import_module("signalforge.models")
     assert hasattr(models_module, "BaseModel")
     assert hasattr(models_module, "User")
 
@@ -46,12 +46,12 @@ def test_read_json_supports_default_value(tmp_path: Path) -> None:
 def test_utils_removed_symbol_raises_import_error() -> None:
     """Removed top-level symbols should no longer be importable from utils."""
     with pytest.raises(ImportError):
-        exec("from ideago.utils import retry_decorator")
+        exec("from signalforge.utils import retry_decorator")
 
 
 def test_removed_symbol_remains_available_from_submodule() -> None:
     """Removed top-level symbols are still available via submodules."""
-    from ideago.utils.decorator_utils import retry_decorator
+    from signalforge.utils.decorator_utils import retry_decorator
 
     assert callable(retry_decorator)
 
@@ -59,10 +59,10 @@ def test_removed_symbol_remains_available_from_submodule() -> None:
 @pytest.mark.parametrize(
     "module_name",
     [
-        "ideago.utils.setting",
-        "ideago.utils.context",
-        "ideago.utils.protocols",
-        "ideago.utils.logger_util",
+        "signalforge.utils.setting",
+        "signalforge.utils.context",
+        "signalforge.utils.protocols",
+        "signalforge.utils.logger_util",
     ],
 )
 def test_removed_legacy_utils_modules_raise_import_error(module_name: str) -> None:
@@ -72,7 +72,7 @@ def test_removed_legacy_utils_modules_raise_import_error(module_name: str) -> No
 
 
 def test_utils_wildcard_exports_only_core_symbols() -> None:
-    """`ideago.utils.__all__` should be the constrained core surface."""
+    """`signalforge.utils.__all__` should be the constrained core surface."""
     expected = {
         "get_logger",
         "setup_logging",

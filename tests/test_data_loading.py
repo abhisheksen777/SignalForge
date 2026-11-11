@@ -1,6 +1,6 @@
 import json
 
-from ideago.utils import read_json
+from signalforge.utils import read_json
 
 
 def test_load_data_file(tmp_path) -> None:

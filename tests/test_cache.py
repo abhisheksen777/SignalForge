@@ -7,8 +7,8 @@ from datetime import datetime, timedelta, timezone
 
 import pytest
 
-from ideago.cache.file_cache import FileCache, _is_stale_status_file
-from ideago.models.research import Intent, Platform, ResearchReport, SearchQuery
+from signalforge.cache.file_cache import FileCache, _is_stale_status_file
+from signalforge.models.research import Intent, Platform, ResearchReport, SearchQuery
 
 
 def _make_report(

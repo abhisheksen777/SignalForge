@@ -1,13 +1,11 @@
 """Tests for protocols module.
-
-协议接口测试。
 """
 
 from typing import Any
 
 import pytest
 
-from ideago.contracts.protocols import (
+from signalforge.contracts.protocols import (
     AsyncCloseable,
     AsyncFileReader,
     AsyncFileWriter,
@@ -19,7 +17,6 @@ from ideago.contracts.protocols import (
 )
 
 # =============================================================================
-# 测试实现类
 # =============================================================================
 
 
@@ -106,7 +103,7 @@ class MockConfigurableImpl:
 
 
 # =============================================================================
-# Serializable 协议测试
+# Serializable 
 # =============================================================================
 
 
@@ -135,7 +132,7 @@ class TestSerializableProtocol:
 
 
 # =============================================================================
-# FileReader/FileWriter 协议测试
+# FileReader/FileWriter 
 # =============================================================================
 
 
@@ -204,7 +201,7 @@ class TestAsyncFileWriterProtocol:
 
 
 # =============================================================================
-# Closeable 协议测试
+# Closeable 
 # =============================================================================
 
 
@@ -242,7 +239,7 @@ class TestAsyncCloseableProtocol:
 
 
 # =============================================================================
-# Configurable 协议测试
+# Configurable 
 # =============================================================================
 
 

@@ -7,7 +7,7 @@ Project maintenance scripts live in `scripts/`.
 - `scripts/rename_package.py`: renames the Python package and project text
   references. Inspect the diff and reinstall editable package afterwards.
 - `scripts/update_version.py`: updates backend version in `pyproject.toml` and
-  `src/ideago/__init__.py`; it does not update `frontend/package.json`.
+  `src/signalforge/__init__.py`; it does not update `frontend/package.json`.
 - `scripts/setup_pre_commit.py`: helper for `uv run pre-commit install`.
 - `scripts/run_vulture.py`: dead-code detection workflow.
 - `scripts/generate_release_notes.py`: release-note draft generation.

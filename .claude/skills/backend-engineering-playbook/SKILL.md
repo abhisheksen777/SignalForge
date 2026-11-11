@@ -1,6 +1,6 @@
 ---
 name: backend-engineering-playbook
-description: Use when implementing IdeaGo backend API, pipeline, cache, or anonymous runtime tasks.
+description: Use when implementing SignalForge backend API, pipeline, cache, or anonymous runtime tasks.
 ---
 # Backend Engineering Playbook
 

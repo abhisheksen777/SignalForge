@@ -2,7 +2,7 @@
 
 ## Python Rules
 
-- Keep `py.typed` in `src/ideago`.
+- Keep `py.typed` in `src/signalforge`.
 - Public functions need explicit return types.
 - Prefer Pydantic models for external data shapes, API schemas, and report
   contracts.
@@ -15,7 +15,7 @@
 
 ## Report Contract
 
-- Keep backend `ideago.api.schemas`, `ideago.models.research`, and frontend
+- Keep backend `signalforge.api.schemas`, `signalforge.models.research`, and frontend
   `frontend/src/lib/types/research.ts` aligned.
 - Treat report detail and export formats as public interfaces.
 - Add serialization-sensitive tests for dates, enums, optional fields, source

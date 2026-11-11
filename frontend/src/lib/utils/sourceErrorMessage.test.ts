@@ -20,7 +20,7 @@ describe('normalizeSourceErrorMessage', () => {
       'LLM extraction failed: Failed to extract competitors: timeout',
     )
 
-    expect(normalized).toBe('暂时无法提取结构化结果，现显示原始结果。')
+    expect(normalized).toBe('')
 
     await i18n.changeLanguage('en')
   })

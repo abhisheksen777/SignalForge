@@ -121,7 +121,7 @@ export function ReportPage() {
     void startQueuedAnalysis(createQuery)
   }, [createQuery, startQueuedAnalysis])
 
-  useDocumentTitle(report ? `${report.query} — IdeaGo` : isNewAnalysis ? t('report.analyzing', 'Analyzing...') + ' — IdeaGo' : 'IdeaGo')
+  useDocumentTitle(report ? `${report.query} — SignalForge` : isNewAnalysis ? t('report.analyzing', 'Analyzing...') + ' — SignalForge' : 'SignalForge')
 
 
   const loadError = (isNewAnalysis ? createError : null) || lifecycleError

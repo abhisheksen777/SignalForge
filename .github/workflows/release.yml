@@ -114,14 +114,14 @@ jobs:
         id: meta
         uses: docker/metadata-action@v5
         with:
-          images: ${{ secrets.DOCKERHUB_USERNAME }}/ideago
+          images: ${{ secrets.DOCKERHUB_USERNAME }}/signalforge
           tags: |
             type=semver,pattern={{version}},value=${{ needs.publish-release.outputs.tag }}
             type=semver,pattern={{major}}.{{minor}},value=${{ needs.publish-release.outputs.tag }}
             type=semver,pattern={{major}},value=${{ needs.publish-release.outputs.tag }}
             type=raw,value=latest,enable=${{ !contains(needs.publish-release.outputs.tag, '-') }}
           labels: |
-            org.opencontainers.image.title=IdeaGo
+            org.opencontainers.image.title=SignalForge
             org.opencontainers.image.description=AI-native product discovery and competitive intelligence workspace
             org.opencontainers.image.source=${{ github.server_url }}/${{ github.repository }}
 

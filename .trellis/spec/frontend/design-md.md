@@ -24,7 +24,7 @@ relevant design-md starting point from:
 - `https://github.com/VoltAgent/awesome-design-md`
 - `https://getdesign.md`
 
-For IdeaGo, prefer a product style that supports decision intelligence,
+For SignalForge, prefer a product style that supports decision intelligence,
 evidence scanning, progress feedback, and dense report reading. Do not blindly
 copy a brand; adapt mood, spacing, typography, and interaction patterns to this
 product.

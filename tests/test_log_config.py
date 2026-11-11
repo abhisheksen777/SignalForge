@@ -5,14 +5,14 @@ from __future__ import annotations
 from pathlib import Path
 from unittest.mock import MagicMock
 
-from ideago.observability.log_config import (
+from signalforge.observability.log_config import (
     configure_json_logging,
     emit_observability_event,
     get_default_logger,
     get_logger,
     setup_logging,
 )
-from ideago.observability.metrics import _Metrics
+from signalforge.observability.metrics import _Metrics
 
 
 def test_setup_logging_writes_to_custom_file(tmp_path: Path) -> None:

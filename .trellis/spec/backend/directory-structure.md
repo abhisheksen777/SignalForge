@@ -1,9 +1,9 @@
 # Backend Directory Structure
 
-Use this when adding files under `src/ideago`.
+Use this when adding files under `src/signalforge`.
 
 ```text
-src/ideago/
+src/signalforge/
 ├── api/
 ├── cache/
 ├── config/
@@ -21,15 +21,15 @@ src/ideago/
 
 | New thing | Default location |
 | --- | --- |
-| FastAPI app, route, middleware, schema, or API error | `src/ideago/api/` |
-| Report persistence, status, or file cache behavior | `src/ideago/cache/` |
-| Runtime settings field or settings helper | `src/ideago/config/` |
-| Protocol/interface shared across modules | `src/ideago/contracts/` |
-| LLM model invocation or prompt-loading behavior | `src/ideago/llm/` |
-| Reusable Pydantic domain/report model | `src/ideago/models/` |
-| Pipeline orchestration, nodes, extraction, aggregation, events | `src/ideago/pipeline/` |
-| External source adapter | `src/ideago/sources/` |
-| Cross-cutting helper with 2+ real users | `src/ideago/utils/` |
+| FastAPI app, route, middleware, schema, or API error | `src/signalforge/api/` |
+| Report persistence, status, or file cache behavior | `src/signalforge/cache/` |
+| Runtime settings field or settings helper | `src/signalforge/config/` |
+| Protocol/interface shared across modules | `src/signalforge/contracts/` |
+| LLM model invocation or prompt-loading behavior | `src/signalforge/llm/` |
+| Reusable Pydantic domain/report model | `src/signalforge/models/` |
+| Pipeline orchestration, nodes, extraction, aggregation, events | `src/signalforge/pipeline/` |
+| External source adapter | `src/signalforge/sources/` |
+| Cross-cutting helper with 2+ real users | `src/signalforge/utils/` |
 
 ## Rules
 

@@ -1,13 +1,11 @@
 """Tests for decorator_utils module.
-
-测试装饰器工具函数模块。
 """
 
 import time
 
 import pytest
 
-from ideago.utils.decorator_utils import (
+from signalforge.utils.decorator_utils import (
     ContextTimer,
     catch_exceptions,
     deprecated,

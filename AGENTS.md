@@ -1,6 +1,6 @@
 # Codex Project Instructions
 
-Use this file as the Codex entrypoint for IdeaGo on the `main` branch.
+Use this file as the Codex entrypoint for SignalForge on the `main` branch.
 
 ## Read Order
 

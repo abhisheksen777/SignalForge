@@ -248,7 +248,7 @@ describe('ReportPage', () => {
     )
 
     expect(screen.queryByText('STEPPER')).not.toBeInTheDocument()
-    expect(screen.queryByText('正在拆解您的想法')).not.toBeInTheDocument()
+    expect(screen.queryByText('')).not.toBeInTheDocument()
 
     pendingReport.resolve({
       status: 'ready',

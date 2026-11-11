@@ -2,7 +2,7 @@
 
 ## Configuration
 
-- Runtime settings live in `src/ideago/config/settings.py`.
+- Runtime settings live in `src/signalforge/config/settings.py`.
 - `Settings` uses `pydantic-settings` and reads environment variables plus
   `.env`.
 - Tests that change environment variables must clear/reload cached settings
@@ -23,7 +23,7 @@ Never expose raw provider API keys through `VITE_*`.
 
 ## Logging And Observability
 
-- Use `ideago.observability.log_config.get_logger`.
+- Use `signalforge.observability.log_config.get_logger`.
 - Preserve or generate request/trace IDs through middleware.
 - Prefer structured fields for report IDs, source names, provider operation
   names, and dependency health.

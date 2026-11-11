@@ -1,4 +1,4 @@
-"""Tests for ideago.pipeline.pre_filter."""
+"""Tests for signalforge.pipeline.pre_filter."""
 
 from __future__ import annotations
 
@@ -6,8 +6,8 @@ from datetime import datetime, timedelta, timezone
 
 import pytest
 
-from ideago.models.research import OpportunityScoreBreakdown, Platform, RawResult
-from ideago.pipeline.pre_filter import (
+from signalforge.models.research import OpportunityScoreBreakdown, Platform, RawResult
+from signalforge.pipeline.pre_filter import (
     _freshness_signal,
     _parse_iso8601,
     _quality_score,

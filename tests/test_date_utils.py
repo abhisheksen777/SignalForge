@@ -1,12 +1,8 @@
-"""Tests for date_utils module.
-
-测试日期时间工具函数模块。
-"""
 
 from datetime import datetime, timedelta, timezone
 
-import ideago.utils.date_utils as date_utils_module
-from ideago.utils.date_utils import (
+import signalforge.utils.date_utils as date_utils_module
+from signalforge.utils.date_utils import (
     add_days,
     add_hours,
     add_minutes,

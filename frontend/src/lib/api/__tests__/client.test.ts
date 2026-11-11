@@ -34,7 +34,7 @@ describe('startAnalysis', () => {
         method: 'POST',
         headers: expect.objectContaining({
           'Content-Type': 'application/json',
-          'X-Requested-With': 'IdeaGo',
+          'X-Requested-With': 'SignalForge',
           'X-Session-Id': expect.any(String),
         }),
         body: JSON.stringify({ query: 'my startup idea' }),

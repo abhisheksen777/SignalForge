@@ -1,4 +1,4 @@
-# IdeaGo `main` Deployment Guide
+# SignalForge `main` Deployment Guide
 
 This document describes how to deploy the anonymous `main` branch.
 
@@ -59,10 +59,10 @@ Minimum `.env` for `main`:
 ENVIRONMENT=production
 OPENAI_API_KEY=sk-...
 OPENAI_MODEL=gpt-4o-mini
-CACHE_DIR=.cache/ideago
+CACHE_DIR=.cache/signalforge
 ANONYMOUS_CACHE_TTL_HOURS=24
 FILE_CACHE_MAX_ENTRIES=500
-LANGGRAPH_CHECKPOINT_DB_PATH=.cache/ideago/langgraph-checkpoints.db
+LANGGRAPH_CHECKPOINT_DB_PATH=.cache/signalforge/langgraph-checkpoints.db
 CORS_ALLOW_ORIGINS=https://your-domain.example
 ```
 
@@ -87,7 +87,7 @@ Important:
 Terminal 1:
 
 ```bash
-uv run uvicorn ideago.api.app:create_app --factory --reload --port 8000
+uv run uvicorn signalforge.api.app:create_app --factory --reload --port 8000
 ```
 
 Terminal 2:
@@ -100,27 +100,26 @@ pnpm --prefix frontend dev
 
 ```bash
 pnpm --prefix frontend build
-uv run python -m ideago
+uv run python -m signalforge
 ```
 
 FastAPI serves the built frontend from `frontend/dist`.
 
 ## 6. Docker Deployment
 
-The default `docker-compose.yml` on `main` pulls the published image:
+The default `docker-compose.yml` on `main` builds the image from the included Dockerfile:
 
 ```bash
-docker compose pull
-docker compose up -d
+docker compose up -d --build
 ```
 
-Optional: pin to a specific tag:
+Optional: tag the built image with a specific version:
 
 ```bash
-IDEAGO_IMAGE_TAG=0.3.9 docker compose up -d
+SIGNALFORGE_IMAGE_TAG=0.3.9 docker compose up -d
 ```
 
-If you prefer to build locally from source, the branch also includes a Dockerfile.
+To run a pre-built image from your own registry instead, replace `build: .` and `image:` in `docker-compose.yml` with that image.
 
 Recommended persistent mounts:
 
@@ -129,7 +128,7 @@ Recommended persistent mounts:
 
 ## 7. Reverse Proxy
 
-For public deployment, put IdeaGo behind a reverse proxy such as:
+For public deployment, put SignalForge behind a reverse proxy such as:
 
 - Caddy
 - Nginx
@@ -207,8 +206,7 @@ When updating a running `main` deployment:
 ```bash
 git checkout main
 git pull
-docker compose pull
-docker compose up -d
+docker compose up -d --build
 ```
 
 Or for a direct-process deployment:
@@ -217,5 +215,5 @@ Or for a direct-process deployment:
 git checkout main
 git pull
 pnpm --prefix frontend build
-uv run python -m ideago
+uv run python -m signalforge
 ```

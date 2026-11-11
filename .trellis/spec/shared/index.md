@@ -1,6 +1,6 @@
 # Shared Index
 
-These rules apply to the `main` branch of IdeaGo.
+These rules apply to the `main` branch of SignalForge.
 
 ## Source Of Truth
 

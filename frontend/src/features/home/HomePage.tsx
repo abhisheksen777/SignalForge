@@ -53,7 +53,7 @@ export function HomePage() {
   const [cachedRecentReports] = useState<ReportListItem[] | null>(
     () => readHistoryCache()?.reports.slice(0, 5) ?? null,
   )
-  useDocumentTitle(`${t('app.title')} — ${t('app.titleHighlight')}`)
+  useDocumentTitle(`${t('app.title')}${t('app.titleHighlight')}`)
 
   const [recentReports, setRecentReports] = useState<ReportListItem[]>(() => cachedRecentReports ?? [])
   const [recentReportsLoading, setRecentReportsLoading] = useState(() => cachedRecentReports === null)

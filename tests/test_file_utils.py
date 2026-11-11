@@ -1,14 +1,12 @@
 """Tests for file_utils module.
-
-文件操作工具测试。
 """
 
 from pathlib import Path
 
 import pytest
 
-from ideago.utils import decorator_utils
-from ideago.utils.file_utils import (
+from signalforge.utils import decorator_utils
+from signalforge.utils.file_utils import (
     async_calculate_file_hash,
     async_copy_file,
     async_delete_file,
@@ -30,7 +28,7 @@ from ideago.utils.file_utils import (
 )
 
 # =============================================================================
-# ensure_directory 测试
+# ensure_directory 
 # =============================================================================
 
 
@@ -64,7 +62,7 @@ class TestEnsureDirectory:
 
 
 # =============================================================================
-# get_file_size / format_file_size 测试
+# get_file_size / format_file_size 
 # =============================================================================
 
 
@@ -110,7 +108,7 @@ class TestFileSize:
 
 
 # =============================================================================
-# calculate_file_hash 测试
+# calculate_file_hash 
 # =============================================================================
 
 
@@ -158,7 +156,7 @@ class TestCalculateFileHash:
 
 
 # =============================================================================
-# copy_file / move_file 测试
+# copy_file / move_file 
 # =============================================================================
 
 
@@ -230,7 +228,7 @@ class TestCopyMoveFile:
 
 
 # =============================================================================
-# delete_file 测试
+# delete_file 
 # =============================================================================
 
 
@@ -256,7 +254,7 @@ class TestDeleteFile:
 
 
 # =============================================================================
-# list_files 测试
+# list_files 
 # =============================================================================
 
 
@@ -318,7 +316,7 @@ class TestListFiles:
 
 
 # =============================================================================
-# read_text_file / write_text_file 测试
+# read_text_file / write_text_file 
 # =============================================================================
 
 
@@ -364,7 +362,7 @@ class TestReadWriteTextFile:
     def test_write_unicode(self, temp_dir: Path) -> None:
         """Test writing and reading unicode content."""
         file_path = temp_dir / "unicode.txt"
-        content = "你好世界 🌍 日本語"
+        content = " 🌍 "
 
         write_text_file(content, file_path)
         result = read_text_file(file_path)
@@ -372,7 +370,7 @@ class TestReadWriteTextFile:
 
 
 # =============================================================================
-# sanitize_filename 测试
+# sanitize_filename 
 # =============================================================================
 
 

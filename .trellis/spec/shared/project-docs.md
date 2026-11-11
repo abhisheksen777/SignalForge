@@ -1,6 +1,6 @@
 # Project Docs
 
-IdeaGo uses Trellis spec files for AI-facing engineering documentation.
+SignalForge uses Trellis spec files for AI-facing engineering documentation.
 
 ## Documentation Rules
 

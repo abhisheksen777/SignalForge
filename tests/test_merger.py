@@ -1,9 +1,9 @@
-"""Tests for ideago.pipeline.merger."""
+"""Tests for signalforge.pipeline.merger."""
 
 from __future__ import annotations
 
-from ideago.models.research import Competitor, Platform
-from ideago.pipeline.merger import merge_competitors
+from signalforge.models.research import Competitor, Platform
+from signalforge.pipeline.merger import merge_competitors
 
 
 def _comp(

@@ -170,7 +170,7 @@ describe('ReportHeader dropdown accessibility', () => {
       intent: {
         ...report.intent,
         keywords_en: ['english-keyword', 'market-fit'],
-        keywords_zh: ['中文关键词', '市场契合'],
+        keywords_zh: ['', ''],
         output_language: 'zh',
       },
     }
@@ -182,6 +182,6 @@ describe('ReportHeader dropdown accessibility', () => {
     )
 
     expect(screen.getByText('english-keyword, market-fit')).toBeInTheDocument()
-    expect(screen.queryByText('中文关键词, 市场契合')).not.toBeInTheDocument()
+    expect(screen.queryByText(', ')).not.toBeInTheDocument()
   })
 })

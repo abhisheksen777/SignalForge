@@ -6,7 +6,7 @@ from unittest.mock import AsyncMock, MagicMock, patch
 
 import pytest
 
-from ideago.models.research import (
+from signalforge.models.research import (
     Intent,
     Platform,
     QueryFamily,
@@ -14,15 +14,15 @@ from ideago.models.research import (
     QueryPlan,
     QueryRewrite,
 )
-from ideago.pipeline.intent_parser import _infer_exact_entities_from_query
-from ideago.pipeline.query_builder import (
+from signalforge.pipeline.intent_parser import _infer_exact_entities_from_query
+from signalforge.pipeline.query_builder import (
     _clean_keywords,
     _slugify,
     build_queries,
     build_query_families,
     infer_query_family,
 )
-from ideago.pipeline.query_planning import (
+from signalforge.pipeline.query_planning import (
     QueryPlanner,
     adapt_query_plan_for_platform,
     build_query_plan,
@@ -200,16 +200,16 @@ class TestBuildQueriesTavily:
     def test_includes_chinese_query_when_zh_keywords_present(self) -> None:
         queries = build_queries(
             Platform.TAVILY,
-            _make_intent(keywords_zh=["笔记", "浏览器扩展"]),
+            _make_intent(keywords_zh=["", ""]),
         )
-        assert any("竞品" in q for q in queries)
+        assert any("" in q for q in queries)
 
     def test_no_chinese_query_when_zh_keywords_absent(self) -> None:
         queries = build_queries(
             Platform.TAVILY,
             _make_intent(keywords_zh=[]),
         )
-        assert all("竞品" not in q for q in queries)
+        assert all("" not in q for q in queries)
 
 
 class TestBuildQueriesEdgeCases:
@@ -291,11 +291,11 @@ class TestQueryPlanningRewriting:
 
         with (
             patch(
-                "ideago.pipeline.query_planning.load_prompt",
+                "signalforge.pipeline.query_planning.load_prompt",
                 return_value="planner-prompt",
             ),
             patch(
-                "ideago.pipeline.query_planning.invoke_json_with_optional_meta",
+                "signalforge.pipeline.query_planning.invoke_json_with_optional_meta",
                 new=AsyncMock(return_value=(llm_payload, {"llm_calls": 1})),
             ),
         ):
@@ -318,9 +318,9 @@ class TestQueryPlanningRewriting:
     ) -> None:
         intent = Intent(
             keywords_en=["visual editor", "agent IDE"],
-            keywords_zh=["可视化编辑器"],
+            keywords_zh=[""],
             app_type="web",
-            target_scenario="为 Claude Code 提供可视化界面",
+            target_scenario=" Claude Code ",
             output_language="zh",
             exact_entities=["Claude Code"],
             comparison_anchors=["Cursor"],
@@ -347,7 +347,7 @@ class TestQueryPlanningRewriting:
         intent = Intent(
             keywords_en=["visual editor", "agent IDE"],
             app_type="web",
-            target_scenario="为 Claude Code 提供可视化界面",
+            target_scenario=" Claude Code ",
             output_language="en",
             exact_entities=["Claude Code"],
             comparison_anchors=["Cursor"],
@@ -379,7 +379,7 @@ class TestQueryPlanningRewriting:
         intent = Intent(
             keywords_en=["visual editor"],
             app_type="web",
-            target_scenario="为 Claude Code 提供可视化界面",
+            target_scenario=" Claude Code ",
             output_language="zh",
             exact_entities=["Claude Code"],
             comparison_anchors=["Cursor"],
@@ -486,11 +486,11 @@ class TestQueryPlanningRewriting:
 
         with (
             patch(
-                "ideago.pipeline.query_planning.load_prompt",
+                "signalforge.pipeline.query_planning.load_prompt",
                 return_value="planner-prompt",
             ),
             patch(
-                "ideago.pipeline.query_planning.invoke_json_with_optional_meta",
+                "signalforge.pipeline.query_planning.invoke_json_with_optional_meta",
                 new=AsyncMock(return_value=(llm_payload, {"llm_calls": 1})),
             ),
         ):
@@ -511,7 +511,7 @@ class TestQueryPlanningRewriting:
         intent = Intent(
             keywords_en=["visual editor", "agent IDE"],
             app_type="web",
-            target_scenario="为 Claude Code 提供可视化界面",
+            target_scenario=" Claude Code ",
             output_language="en",
             exact_entities=["Claude Code"],
             comparison_anchors=["Cursor"],

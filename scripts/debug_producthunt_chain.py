@@ -12,11 +12,11 @@ import json
 import traceback
 from typing import Any
 
-from ideago.api.dependencies import get_orchestrator
-from ideago.config.settings import get_settings
-from ideago.models.research import Platform, RawResult
-from ideago.sources.errors import SourceSearchError
-from ideago.sources.producthunt_source import ProductHuntSource
+from signalforge.api.dependencies import get_orchestrator
+from signalforge.config.settings import get_settings
+from signalforge.models.research import Platform, RawResult
+from signalforge.sources.errors import SourceSearchError
+from signalforge.sources.producthunt_source import ProductHuntSource
 
 
 class DebugProductHuntSource(ProductHuntSource):

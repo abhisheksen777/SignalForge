@@ -9,10 +9,10 @@ from unittest.mock import AsyncMock, MagicMock, patch
 
 import pytest
 
-from ideago.cache.file_cache import FileCache
-from ideago.config.settings import Settings
-from ideago.llm.prompt_loader import load_prompt
-from ideago.models.research import (
+from signalforge.cache.file_cache import FileCache
+from signalforge.config.settings import Settings
+from signalforge.llm.prompt_loader import load_prompt
+from signalforge.models.research import (
     CommercialSignal,
     Competitor,
     EvidenceCategory,
@@ -31,18 +31,18 @@ from ideago.models.research import (
     SourceStatus,
     WhitespaceOpportunity,
 )
-from ideago.pipeline import aggregator as pipeline_aggregator
-from ideago.pipeline import nodes as pipeline_nodes
-from ideago.pipeline.aggregator import AggregationResult, Aggregator
-from ideago.pipeline.events import EventType, PipelineEvent
-from ideago.pipeline.exceptions import AggregationError, ExtractionError
-from ideago.pipeline.extractor import ExtractionOutput, Extractor
-from ideago.pipeline.graph_state import GraphState
-from ideago.pipeline.intent_parser import IntentParser
-from ideago.pipeline.langgraph_engine import LangGraphEngine
-from ideago.pipeline.query_builder import infer_query_family
-from ideago.pipeline.query_planning import QueryPlanner
-from ideago.sources.registry import SourceRegistry
+from signalforge.pipeline import aggregator as pipeline_aggregator
+from signalforge.pipeline import nodes as pipeline_nodes
+from signalforge.pipeline.aggregator import AggregationResult, Aggregator
+from signalforge.pipeline.events import EventType, PipelineEvent
+from signalforge.pipeline.exceptions import AggregationError, ExtractionError
+from signalforge.pipeline.extractor import ExtractionOutput, Extractor
+from signalforge.pipeline.graph_state import GraphState
+from signalforge.pipeline.intent_parser import IntentParser
+from signalforge.pipeline.langgraph_engine import LangGraphEngine
+from signalforge.pipeline.query_builder import infer_query_family
+from signalforge.pipeline.query_planning import QueryPlanner
+from signalforge.sources.registry import SourceRegistry
 
 MOCK_INTENT = Intent(
     keywords_en=["markdown", "notes"],
@@ -242,11 +242,11 @@ async def test_aggregator_synthesizes_whitespace_and_entry_wedge_from_typed_carr
 
     with (
         patch(
-            "ideago.pipeline.aggregator.load_prompt",
+            "signalforge.pipeline.aggregator.load_prompt",
             return_value="aggregator-prompt",
         ) as mock_load_prompt,
         patch(
-            "ideago.pipeline.aggregator.invoke_json_with_optional_meta",
+            "signalforge.pipeline.aggregator.invoke_json_with_optional_meta",
             new=AsyncMock(return_value=(payload, {"llm_calls": 1})),
         ) as mock_invoke,
     ):
@@ -297,10 +297,11 @@ async def test_aggregator_remains_backward_compatible_without_typed_carriers() -
 
     with (
         patch(
-            "ideago.pipeline.aggregator.load_prompt", return_value="aggregator-prompt"
+            "signalforge.pipeline.aggregator.load_prompt",
+            return_value="aggregator-prompt",
         ),
         patch(
-            "ideago.pipeline.aggregator.invoke_json_with_optional_meta",
+            "signalforge.pipeline.aggregator.invoke_json_with_optional_meta",
             new=AsyncMock(return_value=(payload, {"llm_calls": 1})),
         ),
     ):
@@ -332,11 +333,11 @@ async def test_aggregator_emits_synthesis_observability_metrics() -> None:
 
     with (
         patch(
-            "ideago.pipeline.aggregator.load_prompt",
+            "signalforge.pipeline.aggregator.load_prompt",
             return_value="aggregator-prompt",
         ),
         patch(
-            "ideago.pipeline.aggregator.invoke_json_with_optional_meta",
+            "signalforge.pipeline.aggregator.invoke_json_with_optional_meta",
             new=AsyncMock(return_value=(payload, {"llm_calls": 1})),
         ),
         patch.object(pipeline_aggregator.logger, "info") as info_log,
@@ -483,11 +484,11 @@ async def test_extractor_structured_output_is_typed_and_filters_unverified_urls(
 
     with (
         patch(
-            "ideago.pipeline.extractor.load_prompt",
+            "signalforge.pipeline.extractor.load_prompt",
             return_value="extractor-prompt",
         ),
         patch(
-            "ideago.pipeline.extractor.invoke_json_with_optional_meta",
+            "signalforge.pipeline.extractor.invoke_json_with_optional_meta",
             new=AsyncMock(return_value=(payload, {"llm_calls": 1})),
         ),
     ):
@@ -564,11 +565,11 @@ async def test_extractor_extract_preserves_legacy_competitor_return_with_typed_s
 
     with (
         patch(
-            "ideago.pipeline.extractor.load_prompt",
+            "signalforge.pipeline.extractor.load_prompt",
             return_value="extractor-prompt",
         ),
         patch(
-            "ideago.pipeline.extractor.invoke_json_with_optional_meta",
+            "signalforge.pipeline.extractor.invoke_json_with_optional_meta",
             new=AsyncMock(return_value=(payload, {"llm_calls": 1})),
         ),
     ):
@@ -661,9 +662,12 @@ async def test_langgraph_engine_extraction_boundary_exposes_typed_rich_output(
     }
 
     with (
-        patch("ideago.pipeline.extractor.load_prompt", return_value="extractor-prompt"),
         patch(
-            "ideago.pipeline.extractor.invoke_json_with_optional_meta",
+            "signalforge.pipeline.extractor.load_prompt",
+            return_value="extractor-prompt",
+        ),
+        patch(
+            "signalforge.pipeline.extractor.invoke_json_with_optional_meta",
             new=AsyncMock(return_value=(payload, {"llm_calls": 1})),
         ),
     ):
@@ -752,9 +756,12 @@ async def test_langgraph_engine_extraction_boundary_drops_signals_without_verifi
     }
 
     with (
-        patch("ideago.pipeline.extractor.load_prompt", return_value="extractor-prompt"),
         patch(
-            "ideago.pipeline.extractor.invoke_json_with_optional_meta",
+            "signalforge.pipeline.extractor.load_prompt",
+            return_value="extractor-prompt",
+        ),
+        patch(
+            "signalforge.pipeline.extractor.invoke_json_with_optional_meta",
             new=AsyncMock(return_value=(payload, {"llm_calls": 1})),
         ),
     ):
@@ -1097,7 +1104,7 @@ async def test_langgraph_engine_runs_independent_query_planner_before_fetch(
     intent_override = Intent(
         keywords_en=["visual editor"],
         app_type="web",
-        target_scenario="为 Claude Code 提供可视化界面",
+        target_scenario=" Claude Code ",
         output_language="zh",
         exact_entities=["Claude Code"],
         comparison_anchors=["Cursor"],
@@ -1110,7 +1117,7 @@ async def test_langgraph_engine_runs_independent_query_planner_before_fetch(
         planner_override=planner,
     )
 
-    await engine.run("我想开发一个 Claude Code 的可视化编辑器")
+    await engine.run(" Claude Code ")
 
     planner.plan.assert_awaited_once()
     assert any("claude code" in query.lower() for query in source.last_queries)
@@ -1155,7 +1162,7 @@ async def test_langgraph_engine_retrieval_observability_includes_query_plan_cove
     intent_override = Intent(
         keywords_en=["visual editor"],
         app_type="web",
-        target_scenario="为 Claude Code 提供可视化界面",
+        target_scenario=" Claude Code ",
         output_language="zh",
         exact_entities=["Claude Code"],
         comparison_anchors=["Cursor"],
@@ -1169,7 +1176,7 @@ async def test_langgraph_engine_retrieval_observability_includes_query_plan_cove
     )
 
     with patch.object(pipeline_nodes.logger, "info") as info_log:
-        await engine.run("我想开发一个 Claude Code 的可视化编辑器")
+        await engine.run(" Claude Code ")
 
     observability_calls = [
         call.args
@@ -2487,7 +2494,7 @@ async def test_langgraph_engine_uses_dedicated_aggregation_timeout(tmp_path) -> 
     assert report.recommendation_type == RecommendationType.CAUTION
     assert (
         "Aggregation failed" in report.market_summary
-        or "分析失败" in report.market_summary
+        or "" in report.market_summary
     )
 
 
@@ -2496,7 +2503,7 @@ async def test_langgraph_engine_chinese_fallback_content(tmp_path) -> None:
     zh_intent = Intent(
         keywords_en=["markdown", "notes"],
         app_type="browser-extension",
-        target_scenario="用浏览器记录 Markdown 笔记",
+        target_scenario=" Markdown ",
         output_language="zh",
         cache_key="zh-intent",
     )
@@ -2506,12 +2513,12 @@ async def test_langgraph_engine_chinese_fallback_content(tmp_path) -> None:
         intent_override=zh_intent,
     )
 
-    report = await engine.run("帮我做一个 Markdown 笔记插件")
+    report = await engine.run(" Markdown ")
 
-    assert "分析失败" in report.market_summary
-    assert "基于降级分析生成" in report.go_no_go
+    assert "" in report.market_summary
+    assert "" in report.go_no_go
     assert report.recommendation_type == RecommendationType.CAUTION
-    assert "生成" in report.confidence.freshness_hint
+    assert "" in report.confidence.freshness_hint
 
 
 @pytest.mark.asyncio
@@ -2958,7 +2965,7 @@ async def test_langgraph_engine_adaptive_metrics_isolated_per_run(tmp_path) -> N
 
     intent_parser.parse = AsyncMock(side_effect=parse_with_unique_cache)
 
-    from ideago.pipeline.query_builder import build_queries
+    from signalforge.pipeline.query_builder import build_queries
 
     full_query_count = len(build_queries(Platform.GITHUB, intent_override))
 

@@ -10,7 +10,7 @@ function buildReport(overrides: Partial<ResearchReport> = {}): ResearchReport {
     query: 'same-day grocery delivery',
     intent: {
       keywords_en: ['grocery delivery'],
-      keywords_zh: ['生鲜配送'],
+      keywords_zh: [''],
       exact_entities: [],
       comparison_anchors: [],
       search_goal: 'validate',
@@ -43,7 +43,7 @@ function buildReport(overrides: Partial<ResearchReport> = {}): ResearchReport {
       score: 0,
     },
     market_summary: '',
-    go_no_go: 'Go with caution: 赛道需求明确且区域型玩家证明了本地有机+配送可行，但成功关键在供应稳定、履约成本控制与本地密度。',
+    go_no_go: 'Go with caution: +',
     recommendation_type: 'caution',
     differentiation_angles: [],
     confidence: {

@@ -1,6 +1,6 @@
 ---
 name: project-development-playbook
-description: Use when implementing IdeaGo tasks that need branch, stack, and verification guidance.
+description: Use when implementing SignalForge tasks that need branch, stack, and verification guidance.
 ---
 # Project Development Playbook
 

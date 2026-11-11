@@ -1,13 +1,10 @@
-"""Tests for common_utils module.
 
-通用工具函数测试。
-"""
 
 from typing import Any
 
 import pytest
 
-from ideago.utils.common_utils import (
+from signalforge.utils.common_utils import (
     batch_process,
     chunk_list,
     clamp,
@@ -28,7 +25,7 @@ from ideago.utils.common_utils import (
 )
 
 # =============================================================================
-# chunk_list 测试
+# chunk_list 
 # =============================================================================
 
 
@@ -71,7 +68,7 @@ class TestChunkList:
 
 
 # =============================================================================
-# ensure_list 测试
+# ensure_list 
 # =============================================================================
 
 
@@ -94,7 +91,7 @@ class TestEnsureList:
 
 
 # =============================================================================
-# first_non_none 测试
+# first_non_none 
 # =============================================================================
 
 
@@ -117,7 +114,7 @@ class TestFirstNonNone:
 
 
 # =============================================================================
-# flatten_dict / unflatten_dict 测试
+# flatten_dict / unflatten_dict 
 # =============================================================================
 
 
@@ -164,7 +161,7 @@ class TestFlattenUnflattenDict:
 
 
 # =============================================================================
-# merge_dicts / deep_merge_dict 测试
+# merge_dicts / deep_merge_dict 
 # =============================================================================
 
 
@@ -200,7 +197,7 @@ class TestMergeDicts:
 
 
 # =============================================================================
-# filter_dict 测试
+# filter_dict 
 # =============================================================================
 
 
@@ -227,7 +224,7 @@ class TestFilterDict:
 
 
 # =============================================================================
-# safe_get / safe_set 测试
+# safe_get / safe_set 
 # =============================================================================
 
 
@@ -263,7 +260,7 @@ class TestSafeGetSet:
 
 
 # =============================================================================
-# remove_none_values / remove_empty_values 测试
+# remove_none_values / remove_empty_values 
 # =============================================================================
 
 
@@ -296,7 +293,7 @@ class TestRemoveValues:
 
 
 # =============================================================================
-# batch_process 测试
+# batch_process 
 # =============================================================================
 
 
@@ -316,7 +313,7 @@ class TestBatchProcess:
 
 
 # =============================================================================
-# generate_uuid 测试
+# generate_uuid 
 # =============================================================================
 
 
@@ -336,7 +333,7 @@ class TestGenerateUuid:
 
 
 # =============================================================================
-# clamp 测试
+# clamp 
 # =============================================================================
 
 
@@ -362,7 +359,7 @@ class TestClamp:
 
 
 # =============================================================================
-# validate_email 测试
+# validate_email 
 # =============================================================================
 
 
@@ -414,4 +411,4 @@ class TestRetryOnException:
 def test_common_utils_does_not_reexport_settings_api() -> None:
     """common_utils should not re-export Settings accessors."""
     with pytest.raises(ImportError):
-        exec("from ideago.utils.common_utils import get_settings")
+        exec("from signalforge.utils.common_utils import get_settings")

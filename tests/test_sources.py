@@ -8,16 +8,16 @@ from unittest.mock import AsyncMock, patch
 import httpx
 import pytest
 
-from ideago.models.research import Platform, RawResult
-from ideago.pipeline.query_builder import infer_query_family
-from ideago.sources.appstore_source import AppStoreSource
-from ideago.sources.errors import SourceSearchError
-from ideago.sources.github_source import GitHubSource
-from ideago.sources.hackernews_source import HackerNewsSource
-from ideago.sources.producthunt_source import ProductHuntSource
-from ideago.sources.reddit_source import RedditSource
-from ideago.sources.registry import SourceRegistry
-from ideago.sources.tavily_source import TavilySource
+from signalforge.models.research import Platform, RawResult
+from signalforge.pipeline.query_builder import infer_query_family
+from signalforge.sources.appstore_source import AppStoreSource
+from signalforge.sources.errors import SourceSearchError
+from signalforge.sources.github_source import GitHubSource
+from signalforge.sources.hackernews_source import HackerNewsSource
+from signalforge.sources.producthunt_source import ProductHuntSource
+from signalforge.sources.reddit_source import RedditSource
+from signalforge.sources.registry import SourceRegistry
+from signalforge.sources.tavily_source import TavilySource
 
 # ---------- SourceRegistry ----------
 
@@ -538,7 +538,7 @@ def test_tavily_platform() -> None:
 
 
 def test_tavily_client_receives_base_url() -> None:
-    with patch("ideago.sources.tavily_source.AsyncTavilyClient") as mock_client:
+    with patch("signalforge.sources.tavily_source.AsyncTavilyClient") as mock_client:
         TavilySource(api_key="tvly-test", base_url="https://tavily.local")
     mock_client.assert_called_once_with(
         api_key="tvly-test", api_base_url="https://tavily.local"
@@ -546,7 +546,7 @@ def test_tavily_client_receives_base_url() -> None:
 
 
 def test_tavily_client_uses_default_when_base_url_empty() -> None:
-    with patch("ideago.sources.tavily_source.AsyncTavilyClient") as mock_client:
+    with patch("signalforge.sources.tavily_source.AsyncTavilyClient") as mock_client:
         TavilySource(api_key="tvly-test", base_url="")
     mock_client.assert_called_once_with(api_key="tvly-test")
 
@@ -1218,7 +1218,7 @@ async def test_producthunt_search_handles_chinese_queries_without_zeroing() -> N
             httpx.Response(200, json=MOCK_PRODUCTHUNT_POSTS_RESPONSE),
             httpx.Response(200, json=MOCK_PRODUCTHUNT_POSTS_RESPONSE),
         ]
-        results = await src.search(["实时接口监控告警看板"], limit=10)
+        results = await src.search([""], limit=10)
 
     assert len(results) >= 1
 

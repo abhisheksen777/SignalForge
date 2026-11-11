@@ -1,7 +1,7 @@
-# IdeaGo Main Trellis Spec
+# SignalForge Main Trellis Spec
 
 This spec is the AI collaboration source of truth for the `main` branch of
-IdeaGo. The branch is the anonymous/personal deployment edition of the product.
+SignalForge. The branch is the anonymous/personal deployment edition of the product.
 It keeps the Source Intelligence V2 analysis core and intentionally excludes
 hosted runtime concerns such as auth, Supabase ownership, Stripe billing,
 LinuxDo sessions, profiles, quotas, and admin APIs.
@@ -12,7 +12,7 @@ both branches should change.
 
 ## Product Contract
 
-IdeaGo turns a rough startup idea into a decision-first validation report backed
+SignalForge turns a rough startup idea into a decision-first validation report backed
 by live evidence from Tavily, Reddit, GitHub, Hacker News, App Store, and Product
 Hunt. Reports stay ordered as:
 

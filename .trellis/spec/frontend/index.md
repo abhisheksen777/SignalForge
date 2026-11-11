@@ -1,6 +1,6 @@
 # Frontend Index
 
-Read this before frontend work on IdeaGo `main`.
+Read this before frontend work on SignalForge `main`.
 
 ## Current Frontend
 

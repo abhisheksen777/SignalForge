@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from ideago.pipeline.exceptions import (
+from signalforge.pipeline.exceptions import (
     AggregationError,
     ExtractionError,
     IntentParsingError,

@@ -7,12 +7,12 @@ from collections.abc import Iterator
 import pytest
 from fastapi.testclient import TestClient
 
-from ideago.api import app as app_module
-from ideago.api import dependencies as deps
-from ideago.api.app import create_app
-from ideago.cache.file_cache import FileCache
-from ideago.config.settings import get_settings, reload_settings
-from ideago.models.research import Intent, Platform, ResearchReport, SearchQuery
+from signalforge.api import app as app_module
+from signalforge.api import dependencies as deps
+from signalforge.api.app import create_app
+from signalforge.cache.file_cache import FileCache
+from signalforge.config.settings import get_settings, reload_settings
+from signalforge.models.research import Intent, Platform, ResearchReport, SearchQuery
 
 
 def _make_report(
@@ -75,7 +75,7 @@ def test_reports_endpoints_are_anonymous(personal_runtime: FileCache) -> None:
         export_response = client.get(f"/api/v1/reports/{report.id}/export")
         delete_response = client.delete(
             f"/api/v1/reports/{report.id}",
-            headers={"X-Requested-With": "IdeaGo"},
+            headers={"X-Requested-With": "SignalForge"},
         )
 
     assert list_response.status_code == 200
@@ -121,7 +121,7 @@ def test_cancel_analysis_returns_not_found_without_active_task(
     with TestClient(app) as client:
         response = client.delete(
             "/api/v1/reports/missing-report/cancel",
-            headers={"X-Requested-With": "IdeaGo"},
+            headers={"X-Requested-With": "SignalForge"},
         )
 
     assert response.status_code == 404
@@ -168,7 +168,7 @@ def test_report_rate_limits_use_separate_buckets(
         status_response = client.get(f"/api/v1/reports/{report.id}/status")
         delete_response = client.delete(
             f"/api/v1/reports/{report.id}",
-            headers={"X-Requested-With": "IdeaGo"},
+            headers={"X-Requested-With": "SignalForge"},
         )
 
     assert list_response.status_code == 200

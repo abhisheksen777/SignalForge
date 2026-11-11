@@ -3,7 +3,7 @@ import type { PaginatedReportList, ReportRuntimeStatus, ResearchReport } from '.
 const API_BASE = `${import.meta.env.VITE_API_BASE_URL ?? ''}/api/v1`
 const DEFAULT_TIMEOUT_MS = 15000
 const ANALYSIS_TIMEOUT_MS = 30000
-const CLIENT_SESSION_STORAGE_KEY = 'ideago-client-session-id'
+const CLIENT_SESSION_STORAGE_KEY = 'signalforge-client-session-id'
 let clientSessionIdMemory: string | null = null
 
 export class ApiError extends Error {
@@ -46,7 +46,7 @@ interface ParsedError {
 }
 
 function mutationHeaders(): Record<string, string> {
-  return { ...sessionHeaders(), 'X-Requested-With': 'IdeaGo' }
+  return { ...sessionHeaders(), 'X-Requested-With': 'SignalForge' }
 }
 
 function sessionHeaders(): Record<string, string> {

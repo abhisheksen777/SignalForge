@@ -5,8 +5,8 @@ from __future__ import annotations
 import pytest
 from pydantic import ValidationError
 
-import ideago.models as exported_models
-from ideago.models.research import (
+import signalforge.models as exported_models
+from signalforge.models.research import (
     CommercialSignal,
     Competitor,
     ConfidenceMetrics,

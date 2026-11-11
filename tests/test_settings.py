@@ -7,7 +7,7 @@ from pathlib import Path
 import pytest
 from pydantic import ValidationError
 
-from ideago.config.settings import Settings, get_settings, reload_settings
+from signalforge.config.settings import Settings, get_settings, reload_settings
 
 
 def test_get_settings_uses_singleton_cache() -> None:
@@ -28,7 +28,7 @@ def test_reload_settings_supports_custom_env_file(
         "ENVIRONMENT=production\n"
         "OPENAI_API_KEY=test-openai-key\n"
         "OPENAI_BASE_URL=https://openrouter.ai/api/v1\n"
-        "CACHE_DIR=.cache/ideago-personal\n",
+        "CACHE_DIR=.cache/signalforge-personal\n",
         encoding="utf-8",
     )
 
@@ -38,7 +38,7 @@ def test_reload_settings_supports_custom_env_file(
     assert settings.environment == "production"
     assert settings.openai_api_key == "test-openai-key"
     assert settings.openai_base_url == "https://openrouter.ai/api/v1"
-    assert settings.cache_dir == ".cache/ideago-personal"
+    assert settings.cache_dir == ".cache/signalforge-personal"
 
     get_settings.cache_clear()
 
@@ -102,7 +102,7 @@ def test_aggregation_timeout_seconds_default_and_bounds() -> None:
 
 def test_personal_mode_cache_defaults() -> None:
     settings = Settings()
-    assert settings.cache_dir == ".cache/ideago"
+    assert settings.cache_dir == ".cache/signalforge"
     assert settings.anonymous_cache_ttl_hours == 24
     assert settings.file_cache_max_entries == 500
     assert settings.langgraph_checkpoint_db_path.endswith("langgraph-checkpoints.db")

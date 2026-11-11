@@ -1,10 +1,10 @@
 # Backend Index
 
-Read this before backend work on IdeaGo `main`.
+Read this before backend work on SignalForge `main`.
 
 ## Current Backend
 
-IdeaGo is a FastAPI application under `src/ideago` with a typed LangGraph
+SignalForge is a FastAPI application under `src/signalforge` with a typed LangGraph
 Source Intelligence V2 pipeline. The `main` branch is anonymous and
 personal-deployment oriented. It uses local file cache report persistence and
 SQLite checkpoints, and it must boot without Supabase, Stripe, LinuxDo, account,

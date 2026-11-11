@@ -1,7 +1,4 @@
-"""Pytest configuration and fixtures for ideago tests.
 
-提供测试所需的通用 fixtures 和配置。
-"""
 
 import json
 import os
@@ -35,7 +32,6 @@ def _force_dev_environment():
 def temp_dir() -> Generator[Path, None, None]:
     """Create a temporary directory for test files.
 
-    创建用于测试的临时目录。
     """
     with tempfile.TemporaryDirectory() as tmpdir:
         yield Path(tmpdir)
@@ -45,7 +41,6 @@ def temp_dir() -> Generator[Path, None, None]:
 def temp_file(temp_dir: Path) -> Path:
     """Create a temporary text file.
 
-    创建临时文本文件。
     """
     file_path = temp_dir / "test_file.txt"
     file_path.write_text("Hello, World!\nThis is a test file.", encoding="utf-8")
@@ -56,7 +51,7 @@ def temp_file(temp_dir: Path) -> Path:
 def temp_json_file(temp_dir: Path) -> Path:
     """Create a temporary JSON file.
 
-    创建临时 JSON 文件。
+     JSON 
     """
     file_path = temp_dir / "test_data.json"
     data = {"name": "test", "value": 123, "nested": {"key": "value"}}
@@ -68,7 +63,6 @@ def temp_json_file(temp_dir: Path) -> Path:
 def sample_dict() -> dict[str, Any]:
     """Sample dictionary for testing.
 
-    用于测试的示例字典。
     """
     return {
         "name": "test",
@@ -83,7 +77,7 @@ def sample_dict() -> dict[str, Any]:
 def sample_nested_dict() -> dict[str, Any]:
     """Sample nested dictionary for flatten/unflatten tests.
 
-    用于展平/还原测试的嵌套字典。
+    /
     """
     return {"a": {"b": {"c": 1}, "d": 2}, "e": 3}
 
@@ -92,7 +86,6 @@ def sample_nested_dict() -> dict[str, Any]:
 def sample_datetime() -> datetime:
     """Sample datetime for testing.
 
-    用于测试的示例日期时间。
     """
     return datetime(2024, 6, 15, 14, 30, 45)
 
@@ -101,6 +94,5 @@ def sample_datetime() -> datetime:
 def sample_list() -> list:
     """Sample list for chunk testing.
 
-    用于分块测试的示例列表。
     """
     return [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]

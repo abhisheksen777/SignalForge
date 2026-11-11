@@ -1,13 +1,11 @@
-"""Tests for async decorators and utilities.
-
-测试异步装饰器的功能。
+"""Tests for async decorators and utilities
 """
 
 import asyncio
 
 import pytest
 
-from ideago.utils.decorator_utils import (
+from signalforge.utils.decorator_utils import (
     AsyncContextTimer,
     catch_exceptions,
     log_calls,

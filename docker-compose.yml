@@ -1,13 +1,13 @@
 services:
-  ideago:
-    image: "simonsun3/ideago:latest"
-    pull_policy: always
+  signalforge:
+    build: .
+    image: "signalforge:${SIGNALFORGE_IMAGE_TAG:-latest}"
     ports:
       - "${PORT:-8000}:${PORT:-8000}"
     env_file: .env
     volumes:
-      - ideago-cache:/app/${CACHE_DIR:-.cache/ideago}
+      - signalforge-cache:/app/${CACHE_DIR:-.cache/signalforge}
     restart: unless-stopped
 
 volumes:
-  ideago-cache:
+  signalforge-cache:

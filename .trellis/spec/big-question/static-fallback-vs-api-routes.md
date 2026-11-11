@@ -1,6 +1,6 @@
 # Static Fallback vs API Routes
 
-IdeaGo serves the Vite build from FastAPI when `frontend/dist/` exists.
+SignalForge serves the Vite build from FastAPI when `frontend/dist/` exists.
 
 ## Rule
 

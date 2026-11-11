@@ -3,16 +3,16 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project]
-name = "ideago"
+name = "signalforge"
 version = "0.3.9"
 description = "AI-powered competitor research engine for startup ideas"
 readme = "README.md"
 license = {file = "LICENSE"}
 authors = [
-    {name = "Tendo33"},
+    {name = "abhisheksen777"},
 ]
 maintainers = [
-    {name = "Tendo33"},
+    {name = "abhisheksen777"},
 ]
 classifiers = [
     "Development Status :: 4 - Beta",
@@ -65,11 +65,11 @@ test = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/Tendo33/ideago"
-Repository = "https://github.com/Tendo33/ideago"
-Documentation = "https://github.com/Tendo33/ideago/tree/main/.trellis/spec"
-Changelog = "https://github.com/Tendo33/ideago/blob/main/CHANGELOG.md"
-"Bug Tracker" = "https://github.com/Tendo33/ideago/issues"
+Homepage = "https://github.com/abhisheksen777/SignalForge"
+Repository = "https://github.com/abhisheksen777/SignalForge"
+Documentation = "https://github.com/abhisheksen777/SignalForge/tree/main/.trellis/spec"
+Changelog = "https://github.com/abhisheksen777/SignalForge/blob/main/CHANGELOG.md"
+"Bug Tracker" = "https://github.com/abhisheksen777/SignalForge/issues"
 
 # Ruff configuration
 [tool.ruff]
@@ -166,7 +166,7 @@ docstring-code-format = true
 docstring-code-line-length = "dynamic"
 
 [tool.ruff.lint.isort]
-known-first-party = ["ideago"]
+known-first-party = ["signalforge"]
 
 [tool.mypy]
 python_version = "3.10"
@@ -183,7 +183,7 @@ minversion = "7.0"
 addopts = [
     "--strict-markers",
     "--strict-config",
-    "--cov=ideago",
+    "--cov=signalforge",
     "--cov-report=term-missing",
     "--cov-report=html",
     "--cov-report=xml",
@@ -228,7 +228,7 @@ skip_covered = false
 
 # Hatch configuration for building
 [tool.hatch.version]
-path = "src/ideago/__init__.py"
+path = "src/signalforge/__init__.py"
 
 [tool.hatch.build.targets.sdist]
 exclude = [
@@ -252,7 +252,7 @@ exclude = [
 ]
 
 [tool.hatch.build.targets.wheel]
-packages = ["src/ideago"]
+packages = ["src/signalforge"]
 
 [dependency-groups]
 dev = [

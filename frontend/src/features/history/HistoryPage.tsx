@@ -85,7 +85,7 @@ export function HistoryPage() {
   const { t, i18n } = useTranslation()
   const language = i18n.resolvedLanguage ?? i18n.language
   const [initialCache] = useState<HistoryCacheSnapshot | null>(() => readHistoryCache())
-  useDocumentTitle(t('history.title') + ' — IdeaGo')
+  useDocumentTitle(t('history.title') + ' — SignalForge')
   const [reports, setReports] = useState<ReportListItem[]>(() => initialCache?.reports ?? [])
   const [loading, setLoading] = useState(() => initialCache === null)
   const [error, setError] = useState<string | null>(null)

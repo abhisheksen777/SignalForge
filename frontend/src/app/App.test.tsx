@@ -98,12 +98,12 @@ describe('App theme mode', () => {
     fireEvent.click(themeButton)
     fireEvent.click(screen.getByRole('menuitemradio', { name: 'Light' }))
 
-    expect(localStorage.getItem('ideago-theme-mode')).toBe('light')
+    expect(localStorage.getItem('signalforge-theme-mode')).toBe('light')
     expect(document.documentElement.classList.contains('dark')).toBe(false)
   })
 
   it('restores manual theme from localStorage', async () => {
-    localStorage.setItem('ideago-theme-mode', 'dark')
+    localStorage.setItem('signalforge-theme-mode', 'dark')
     mockMatchMedia(false)
     render(<App />)
     expect(await screen.findByText('HOME PAGE')).toBeInTheDocument()
@@ -122,8 +122,8 @@ describe('App nav branding', () => {
     render(<App />)
     expect(await screen.findByText('HOME PAGE')).toBeInTheDocument()
 
-    const logoLink = screen.getByRole('link', { name: /idea\s*go/i })
-    expect(within(logoLink).getByText(/idea\s+go/i)).toBeInTheDocument()
+    const logoLink = screen.getByRole('link', { name: /signal\s*forge/i })
+    expect(within(logoLink).getByText(/signal\s*forge/i)).toBeInTheDocument()
     expect(logoLink).toHaveClass('bg-primary')
     expect(logoLink).toHaveClass('text-primary-foreground')
   })

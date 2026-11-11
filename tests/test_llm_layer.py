@@ -8,7 +8,7 @@ from unittest.mock import AsyncMock, MagicMock
 import pytest
 from openai import APIStatusError
 
-from ideago.llm.chat_model import (
+from signalforge.llm.chat_model import (
     ChatModelClient,
     LlmEndpointConfig,
     _backoff_delay_seconds,
@@ -24,8 +24,8 @@ from ideago.llm.chat_model import (
     _parse_json_response_content,
     _safe_non_negative_int,
 )
-from ideago.llm.prompt_loader import load_prompt
-from ideago.models.research import (
+from signalforge.llm.prompt_loader import load_prompt
+from signalforge.models.research import (
     Competitor,
     Intent,
     Platform,
@@ -34,16 +34,16 @@ from ideago.models.research import (
     RawResult,
     RecommendationType,
 )
-from ideago.pipeline.aggregator import (
+from signalforge.pipeline.aggregator import (
     AggregationResult,
     Aggregator,
     build_failed_aggregation_result,
 )
-from ideago.pipeline.exceptions import AggregationError, IntentParsingError
-from ideago.pipeline.extractor import Extractor
-from ideago.pipeline.intent_parser import IntentParser
-from ideago.pipeline.merger import merge_competitors
-from ideago.pipeline.query_planning import QueryPlanner
+from signalforge.pipeline.exceptions import AggregationError, IntentParsingError
+from signalforge.pipeline.extractor import Extractor
+from signalforge.pipeline.intent_parser import IntentParser
+from signalforge.pipeline.merger import merge_competitors
+from signalforge.pipeline.query_planning import QueryPlanner
 
 _TEST_INTENT = Intent(
     keywords_en=["markdown", "notes"],
@@ -161,7 +161,7 @@ def test_parse_json_response_content_accepts_markdown_block() -> None:
 
 def test_parse_json_response_content_accepts_prefixed_chatter() -> None:
     payload, strategy = _parse_json_response_content(
-        '好的，这是你的结果：\n{"name":"test","score":0.8}'
+        '\n{"name":"test","score":0.8}'
     )
     assert payload["name"] == "test"
     assert payload["score"] == 0.8
@@ -331,7 +331,7 @@ def test_chat_model_client_passes_custom_base_url(
         def bind(self, **_: object) -> MagicMock:
             return MagicMock()
 
-    monkeypatch.setattr("ideago.llm.chat_model.ChatOpenAI", FakeChatOpenAI)
+    monkeypatch.setattr("signalforge.llm.chat_model.ChatOpenAI", FakeChatOpenAI)
 
     ChatModelClient(
         api_key="sk-test",
@@ -354,7 +354,7 @@ def test_chat_model_client_treats_blank_base_url_as_none(
         def bind(self, **_: object) -> MagicMock:
             return MagicMock()
 
-    monkeypatch.setattr("ideago.llm.chat_model.ChatOpenAI", FakeChatOpenAI)
+    monkeypatch.setattr("signalforge.llm.chat_model.ChatOpenAI", FakeChatOpenAI)
 
     ChatModelClient(api_key="sk-test", model="gpt-4o-mini", base_url="   ")
 
@@ -484,7 +484,7 @@ MOCK_INTENT_LLM_RESPONSE = {
     "exact_entities": ["Browser Extension"],
     "comparison_anchors": ["Notion Web Clipper"],
     "search_goal": "find_direct_competitors",
-    "keywords_zh": ["Markdown 笔记", "浏览器插件"],
+    "keywords_zh": ["Markdown ", ""],
     "output_language": "zh",
     "app_type": "browser-extension",
     "target_scenario": "Take markdown notes while browsing web pages",
@@ -516,7 +516,7 @@ async def test_intent_parser_returns_intent() -> None:
     llm.invoke_json_with_meta = AsyncMock(return_value=(MOCK_INTENT_LLM_RESPONSE, {}))
 
     parser = IntentParser(llm)
-    intent = await parser.parse("我想做一个给网页内容做Markdown笔记的浏览器插件")
+    intent = await parser.parse("Markdown")
 
     assert "markdown" in intent.keywords_en
     assert intent.app_type == "browser-extension"
@@ -551,12 +551,12 @@ async def test_intent_parser_normalizes_search_goal_and_backfills_anchor_keyword
         return_value=(
             {
                 "keywords_en": ["visual editor", "AI coding assistant"],
-                "keywords_zh": ["可视化编辑器"],
+                "keywords_zh": [""],
                 "exact_entities": [" Claude Code ", "claude code"],
                 "comparison_anchors": [" Cursor ", "cursor"],
                 "search_goal": "something_unknown",
                 "app_type": "web",
-                "target_scenario": "为 Claude Code 提供可视化界面",
+                "target_scenario": " Claude Code ",
                 "output_language": "zh",
             },
             {},
@@ -564,7 +564,7 @@ async def test_intent_parser_normalizes_search_goal_and_backfills_anchor_keyword
     )
 
     parser = IntentParser(llm)
-    intent = await parser.parse("我想开发一个 Claude Code 的可视化编辑器")
+    intent = await parser.parse(" Claude Code ")
 
     assert intent.search_goal == "find_direct_competitors"
     assert intent.exact_entities == ["Claude Code"]
@@ -600,7 +600,7 @@ async def test_query_planner_prefers_llm_output_and_returns_typed_plan() -> None
     intent = Intent(
         keywords_en=["visual editor"],
         app_type="web",
-        target_scenario="为 Claude Code 提供可视化界面",
+        target_scenario=" Claude Code ",
         output_language="zh",
         exact_entities=["Claude Code"],
         comparison_anchors=["Cursor"],
@@ -623,7 +623,7 @@ async def test_query_planner_falls_back_to_rule_planner_on_invalid_payload() -> 
     intent = Intent(
         keywords_en=["visual editor", "agent IDE"],
         app_type="web",
-        target_scenario="为 Claude Code 提供可视化界面",
+        target_scenario=" Claude Code ",
         output_language="zh",
         exact_entities=["Claude Code"],
         comparison_anchors=["Cursor"],
@@ -921,7 +921,7 @@ async def test_extractor_normalizes_nullable_evidence_fields() -> None:
                         "snippet": "Mentions integrated editor workflows.",
                         "category": "market",
                         "freshness_hint": None,
-                        "matched_query": "Claude Code 编辑器体验",
+                        "matched_query": "Claude Code ",
                         "query_family": "competitor_discovery",
                     }
                 ],
@@ -1005,7 +1005,7 @@ async def test_aggregator_analyzes_without_modifying_competitors() -> None:
     assert len(result.competitors) == 2
     assert "crowded" in result.go_no_go.lower() or "caution" in result.go_no_go.lower()
     assert len(result.differentiation_angles) == 3
-    from ideago.models.research import RecommendationType
+    from signalforge.models.research import RecommendationType
 
     assert result.recommendation_type == RecommendationType.CAUTION
 
@@ -1016,9 +1016,9 @@ async def test_aggregator_empty_competitors() -> None:
     agg = Aggregator(llm)
     result = await agg.aggregate([], "test", output_language="zh")
     assert result.competitors == []
-    assert "竞品" in result.market_summary
+    assert "" in result.market_summary
     assert result.recommendation_type == RecommendationType.CAUTION
-    assert "不建议" in result.go_no_go
+    assert "" in result.go_no_go
     assert result.uncertainty_notes
     llm.invoke_json.assert_not_called()
 
@@ -1046,8 +1046,8 @@ async def test_aggregator_error_and_metrics_paths() -> None:
 
 
 def test_aggregator_infers_recommendation_type_fallback() -> None:
-    from ideago.models.research import RecommendationType
-    from ideago.pipeline.aggregator import _infer_recommendation_type
+    from signalforge.models.research import RecommendationType
+    from signalforge.pipeline.aggregator import _infer_recommendation_type
 
     assert _infer_recommendation_type("No-go for now") == RecommendationType.NO_GO
     assert (

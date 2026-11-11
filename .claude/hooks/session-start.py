@@ -69,7 +69,7 @@ def _normalize_windows_shell_path(path_str: str) -> str:
 
 FIRST_REPLY_NOTICE = """<first-reply-notice>
 On the first visible assistant reply in this session, begin with exactly one short Chinese sentence:
-Trellis SessionStart 已注入：workflow、当前任务状态、开发者身份、git 状态、active tasks、spec 索引已加载。
+Trellis SessionStart workflowgit active tasksspec 
 Then continue directly with the user's request. This notice is one-shot: do not repeat it after the first assistant reply in the same session.
 </first-reply-notice>"""
 
@@ -295,7 +295,7 @@ def _get_task_status(trellis_dir: Path, input_data: dict) -> str:
             "they persist findings to `{TASK_DIR}/research/*.md` and keep main context clean. "
             "Do NOT do 10+ inline WebFetch/WebSearch in the main conversation.\n"
             "User override (per-turn escape hatch): if the user's first message explicitly opts "
-            "out of the workflow (\"跳过 trellis\" / \"别走流程\" / \"小修一下\" / \"直接改\" / "
+            "out of the workflow (\" trellis\" / \"\" / \"\" / \"\" / "
             "\"skip trellis\" / \"no task\" / \"just do it\"), honor it for this turn — "
             "acknowledge briefly and proceed without creating a task. Per-turn only."
         )
@@ -375,8 +375,8 @@ def _get_task_status(trellis_dir: Path, input_data: dict) -> str:
         "instruction does NOT apply to you — you are already the dispatched sub-agent. "
         "Implement / check directly without spawning another sub-agent of the same kind.\n"
         "User override (per-turn escape hatch): if the user's CURRENT message explicitly tells the "
-        "main session to handle it directly (\"你直接改\" / \"别派 sub-agent\" / \"main session 写就行\" / "
-        "\"do it inline\" / \"不用 sub-agent\"), honor it for this turn and edit code directly. "
+        "main session to handle it directly (\"\" / \" sub-agent\" / \"main session \" / "
+        "\"do it inline\" / \" sub-agent\"), honor it for this turn and edit code directly. "
         "Per-turn only; do NOT invent an override the user did not say."
     )
 

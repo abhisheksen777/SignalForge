@@ -1,12 +1,11 @@
 #!/usr/bin/env python3
-"""Version update script for ideago project.
+"""Version update script for signalforge project.
 
 This script updates the version number across all relevant files in the project:
 - pyproject.toml
-- src/ideago/__init__.py
+- src/signalforge/__init__.py
 - frontend/package.json
 
-该脚本用于更新项目中所有相关文件的版本号。
 
 Usage:
     python scripts/update_version.py <new_version> [--dry-run]
@@ -36,13 +35,11 @@ class VersionTarget:
 class VersionUpdater:
     """Version updater for the project.
 
-    项目版本更新器。
     """
 
     def __init__(self, project_root: Path):
         """Initialize version updater.
 
-        初始化版本更新器。
 
         Args:
             project_root: Path to project root directory
@@ -55,7 +52,7 @@ class VersionUpdater:
                 replacement='version = "{version}"',
             ),
             VersionTarget(
-                path=project_root / "src" / "ideago" / "__init__.py",
+                path=project_root / "src" / "signalforge" / "__init__.py",
                 pattern=r'^__version__ = "([^"]+)"',
                 replacement='__version__ = "{version}"',
             ),
@@ -71,7 +68,6 @@ class VersionUpdater:
     def validate_version(version: str) -> bool:
         """Validate semantic version format.
 
-        验证语义化版本格式。
 
         Args:
             version: Version string to validate
@@ -86,7 +82,7 @@ class VersionUpdater:
     def get_current_version(self) -> str:
         """Get current version from pyproject.toml.
 
-        从pyproject.toml获取当前版本。
+        pyproject.toml
 
         Returns:
             Current version string
@@ -105,7 +101,6 @@ class VersionUpdater:
     def update_file(self, target: VersionTarget, new_version: str) -> tuple[str, str]:
         """Update version in a single file.
 
-        更新单个文件中的版本。
 
         Args:
             target: Version target configuration
@@ -151,7 +146,6 @@ class VersionUpdater:
     def update_all(self, new_version: str, dry_run: bool = False) -> list[str]:
         """Update version in all project files.
 
-        更新所有项目文件中的版本。
 
         Args:
             new_version: New version string
@@ -212,7 +206,6 @@ class VersionUpdater:
 def main():
     """Main entry point for the script.
 
-    脚本的主入口点。
     """
     parser = argparse.ArgumentParser(
         description="Update version number across all project files",

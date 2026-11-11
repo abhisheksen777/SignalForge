@@ -26,7 +26,7 @@ interface ErrorBoundaryProps extends WithTranslation {
   children: ReactNode
 }
 
-const THEME_MODE_STORAGE_KEY = 'ideago-theme-mode'
+const THEME_MODE_STORAGE_KEY = 'signalforge-theme-mode'
 const THEME_MEDIA_QUERY = '(prefers-color-scheme: dark)'
 
 function isThemeMode(value: string | null): value is ThemeMode {
@@ -193,7 +193,7 @@ function NavBar({
         to="/"
         className="inline-flex min-h-[44px] items-center px-2 sm:px-4 py-1.5 sm:py-2 border-2 border-border font-bold uppercase tracking-widest bg-primary text-primary-foreground shadow-sm cursor-pointer focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none rounded-none hover:translate-y-[2px] hover:translate-x-[2px] hover:shadow-none transition-all truncate max-w-[50vw] sm:max-w-none text-xs sm:text-base"
       >
-        {t('app.title')} {t('app.titleHighlight')}
+        {t('app.title')}{t('app.titleHighlight')}
       </Link>
       <div className="flex items-center gap-2 sm:gap-3 md:gap-4 shrink-0">
         <ThemeModeMenu themeMode={themeMode} onSelectThemeMode={onSelectThemeMode} />

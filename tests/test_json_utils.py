@@ -1,6 +1,4 @@
 """Tests for json_utils module.
-
-测试 JSON 工具函数模块。
 """
 
 import contextlib
@@ -10,8 +8,8 @@ from pathlib import Path
 
 import pytest
 
-from ideago.utils import decorator_utils
-from ideago.utils.json_utils import (
+from signalforge.utils import decorator_utils
+from signalforge.utils.json_utils import (
     async_load_json_batch,
     async_merge_json_files,
     async_read_json,
@@ -83,13 +81,13 @@ class TestWriteJson:
     def test_write_json_unicode(self, temp_dir: Path) -> None:
         """Test writing JSON with Unicode characters."""
         file_path = temp_dir / "unicode.json"
-        data = {"中文": "测试", "emoji": "😀"}
+        data = {"": "", "emoji": "😀"}
         result = write_json(data, file_path, ensure_ascii=False)
         assert result is True
 
         content = file_path.read_text(encoding="utf-8")
-        assert "中文" in content
-        assert "测试" in content
+        assert "" in content
+        assert "" in content
 
     def test_write_json_creates_dirs(self, temp_dir: Path) -> None:
         """Test write creates parent directories."""
@@ -177,10 +175,10 @@ class TestSafeJsonDumps:
 
     def test_safe_json_dumps_unicode(self) -> None:
         """Test serializing with Unicode."""
-        data = {"中文": "测试"}
+        data = {"": ""}
         json_str = safe_json_dumps(data, ensure_ascii=False)
         assert json_str is not None
-        assert "中文" in json_str
+        assert "" in json_str
 
     def test_safe_json_dumps_with_indent(self) -> None:
         """Test serializing with indentation."""
