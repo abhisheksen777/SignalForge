@@ -32,14 +32,6 @@
 - **Anonymous by design** — no login required; stable client session IDs
 - **Production safeguards** — per-route rate limiting, Content-Security-Policy headers, Sentry support
 
-## Screenshots
-
-| Idea intake | Research pipeline |
-|---|---|
-| ![Landing](docs/assets/1.png) | ![Pipeline](docs/assets/2.png) |
-| **Decision summary** | **Competitive landscape** |
-| ![Summary](docs/assets/3.png) | ![Report](docs/assets/4.png) |
-
 ## Tech Stack
 
 | Layer | Tools |
